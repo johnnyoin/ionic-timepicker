@@ -43,6 +43,8 @@ For example, you might change some of the default colors:
 }
 .ionic_timepicker_popup .time_picker_colon {
   padding-top: 45px;
+  padding-left: 0;
+  padding-right: 0;
   text-align: center;
   font-weight: bold;
 }

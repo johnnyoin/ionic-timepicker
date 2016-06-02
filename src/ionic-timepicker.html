@@ -1,7 +1,7 @@
 <div class="">
-  <div class="heading"> {{header}} <span ng-show="time.format == 12">{{time.meridian}}</span></div>
+  <div class="heading"> {{mainObj.titleLabel}} <span ng-show="time.format == 12">{{time.meridian}}</span></div>
   <div class="row" ng-class="{'padding_left_15px':time.format == 12}">
-    <div class="col col-25" ng-class="{'col-offset-20 col-25':time.format == 24}">
+    <div class="col col-25" ng-class="{'col-25':time.format == 24}">
       <button type="button" class="button button-clear button-small button-dark time_picker_arrows"
               ng-click="increaseHours()">
         <i class="icon ion-chevron-up"></i></button>
@@ -10,7 +10,7 @@
               ng-click="decreaseHours()">
         <i class="icon ion-chevron-down"></i></button>
     </div>
-    <label class="col col-10 time_picker_colon"> : </label>
+    <label class="col time_picker_colon"> {{mainObj.hoursLabel}} </label>
 
     <div class="col col-25" ng-class="{'col-25':time.format == 24}">
       <button type="button" class="button button-clear button-small button-dark time_picker_arrows"
@@ -19,6 +19,8 @@
       <button type="button" class="button button-clear button-small button-dark time_picker_arrows"
               ng-click="decreaseMinutes()"><i class="icon ion-chevron-down"></i></button>
     </div>
+    <label class="col time_picker_colon"> {{mainObj.minutesLabel}} </label>
+
     <label class="col col-10 time_picker_colon" ng-if="time.format == 12"> : </label>
 
     <div class="col col-25" ng-if="time.format == 12">

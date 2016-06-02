@@ -3,7 +3,9 @@ angular.module('ionic-timepicker.provider', [])
   .provider('ionicTimePicker', function () {
 
     var config = {
-      title: 'Duration',
+      titleLabel: 'Duration',
+      hoursLabel: 'hours',
+      minutesLabel: 'minutes',
       setLabel: 'Set',
       closeLabel: 'Close',
       inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
@@ -113,7 +115,6 @@ angular.module('ionic-timepicker.provider', [])
         var buttons = [];
         $scope.mainObj = angular.extend({}, config, ipObj);
         setMinSecs($scope.mainObj.inputTime, $scope.mainObj.format);
-        $scope.header = $scope.mainObj.title;
 
         buttons.push({
           text: $scope.mainObj.setLabel,
