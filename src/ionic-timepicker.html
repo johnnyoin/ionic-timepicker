@@ -10,7 +10,7 @@
               ng-click="decreaseHours()">
         <i class="icon ion-chevron-down"></i></button>
     </div>
-    <label class="col time_picker_colon"> {{mainObj.hoursLabel}} </label>
+    <label class="col time_picker_colon"> {{pluralize(mainObj.hoursLabel, time.hours)}} </label>
 
     <div class="col col-25" ng-class="{'col-25':time.format == 24}">
       <button type="button" class="button button-clear button-small button-dark time_picker_arrows"
@@ -19,7 +19,7 @@
       <button type="button" class="button button-clear button-small button-dark time_picker_arrows"
               ng-click="decreaseMinutes()"><i class="icon ion-chevron-down"></i></button>
     </div>
-    <label class="col time_picker_colon"> {{mainObj.minutesLabel}} </label>
+    <label class="col time_picker_colon"> {{pluralize(mainObj.minutesLabel, time.minutes)}} </label>
 
     <label class="col col-10 time_picker_colon" ng-if="time.format == 12"> : </label>
 

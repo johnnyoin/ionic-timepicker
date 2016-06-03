@@ -89,6 +89,14 @@ angular.module('ionic-timepicker.provider', [])
         $scope.time.meridian = ($scope.time.meridian === "AM") ? "PM" : "AM";
       };
 
+      $scope.pluralize = function(string, from) {
+        if (from > 1) {
+          return string;
+        } else {
+          return string.slice(0, -1);
+        }
+      };
+
       function preventEmptyDuration() {
         if ($scope.time.hours == 0 && $scope.time.minutes == 0) {
           $scope.time.minutes = $scope.mainObj.step;
