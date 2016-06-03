@@ -3,6 +3,9 @@ angular.module('ionic-timepicker.provider', [])
   .provider('ionicTimePicker', function () {
 
     var config = {
+      titleLabel: 'Duration',
+      hoursLabel: 'hours',
+      minutesLabel: 'minutes',
       setLabel: 'Set',
       closeLabel: 'Close',
       inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
@@ -44,7 +47,8 @@ angular.module('ionic-timepicker.provider', [])
         if ($scope.mainObj.format == 24) {
           $scope.time.hours = ($scope.time.hours + 1) % 24;
         }
-        $scope.time.hours = ($scope.time.hours < 10) ? ('0' + $scope.time.hours) : $scope.time.hours;
+        preventEmptyDuration();
+        addPrefixIfNeeded();
       };
 
       //Decreasing the hours
@@ -60,21 +64,24 @@ angular.module('ionic-timepicker.provider', [])
         if ($scope.mainObj.format == 24) {
           $scope.time.hours = ($scope.time.hours + 23) % 24;
         }
-        $scope.time.hours = ($scope.time.hours < 10) ? ('0' + $scope.time.hours) : $scope.time.hours;
+        preventEmptyDuration();
+        addPrefixIfNeeded();
       };
 
       //Increasing the minutes
       $scope.increaseMinutes = function () {
         $scope.time.minutes = Number($scope.time.minutes);
         $scope.time.minutes = ($scope.time.minutes + $scope.mainObj.step) % 60;
-        $scope.time.minutes = ($scope.time.minutes < 10) ? ('0' + $scope.time.minutes) : $scope.time.minutes;
+        preventEmptyDuration();
+        addPrefixIfNeeded();
       };
 
       //Decreasing the minutes
       $scope.decreaseMinutes = function () {
         $scope.time.minutes = Number($scope.time.minutes);
         $scope.time.minutes = ($scope.time.minutes + (60 - $scope.mainObj.step)) % 60;
-        $scope.time.minutes = ($scope.time.minutes < 10) ? ('0' + $scope.time.minutes) : $scope.time.minutes;
+        preventEmptyDuration();
+        addPrefixIfNeeded();
       };
 
       //Changing the meridian
@@ -82,8 +89,27 @@ angular.module('ionic-timepicker.provider', [])
         $scope.time.meridian = ($scope.time.meridian === "AM") ? "PM" : "AM";
       };
 
+      $scope.pluralize = function(string, from) {
+        if (from > 1) {
+          return string;
+        } else {
+          return string.slice(0, -1);
+        }
+      };
+
+      function preventEmptyDuration() {
+        if ($scope.time.hours == 0 && $scope.time.minutes == 0) {
+          $scope.time.minutes = $scope.mainObj.step;
+        }
+      }
+
+      function addPrefixIfNeeded() {
+        $scope.time.hours = ($scope.time.hours < 10 && !$scope.time.hours.length) ? ('0' + $scope.time.hours) : $scope.time.hours;
+        $scope.time.minutes = ($scope.time.minutes < 10 && !$scope.time.minutes.length) ? ('0' + $scope.time.minutes) : $scope.time.minutes;
+      }
+
       function setMinSecs(ipTime, format) {
-        $scope.time.hours = Math.floor(ipTime / (60 * 60));
+        $scope.time.hours = ipTime / (60 * 60);
 
         var rem = ipTime % (60 * 60);
         if (format == 12) {
